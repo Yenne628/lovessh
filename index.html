@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클릭 횟수 유지 페이지</title>
+    
+    <style>
+        /* CSS 스타일... (이전 코드의 <style> 내용 전체를 여기에 복사-붙여넣기) */
+        /* 1. 배경색 변경 및 전체 페이지 기본 설정 */
+        body {
+            margin: 0; 
+            font-family: Arial, sans-serif; 
+            background-color: #f5e0fa; /* 연한 하늘색 배경 */
+            display: flex; 
+            justify-content: center; /* 수평 중앙 정렬 */
+            align-items: center; /* 수직 중앙 정렬 */
+            min-height: 100vh; 
+        }
+
+        /* 2. 사진/글자 컨테이너 중앙 정렬을 위한 래퍼 */
+        .main-content-wrapper {
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            width: 100%;
+        }
+
+        /* 3. 사진 크기 조절 */
+        .responsive-image {
+            max-width: 800px; /* 사진 최대 너비 */
+            width: 100%; 
+            height: auto; 
+            display: block;
+            border-radius: 10px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        /* 기존 이미지-텍스트 컨테이너 스타일 */
+        .image-text-container {
+            position: relative;
+            text-align: center; 
+            padding: 20px;
+            background-color: #ffffff; /* 컨테이너 배경 흰색 */
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+
+        /* 텍스트 오버레이 스타일 */
+        .text-overlay {
+            color: #333; /* 텍스트 색상 */
+            margin-top: 20px; 
+        }
+
+        .text-overlay h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .text-overlay p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* 버튼 스타일 */
+        #counterButton {
+            background-color: #9500ff; 
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer; 
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        #counterButton:hover {
+            background-color: #bd60ff; 
+        }
+
+        /* 클릭 횟수 표시 스타일 */
+        #clickCount {
+            font-weight: bold;
+            color: #d900ff; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-content-wrapper">
+        <div class="image-text-container">
+            <img src="https://cdn.discordapp.com/attachments/1322152571103875082/1442162628846944366/IMG_1205.png?ex=69246e1c&is=69231c9c&hm=ea58937838e6cc09e2433d5b253cb3e644e3057884cb8c18cde8537e1a010cf4&" 
+                 alt="배경 이미지" class="responsive-image">
+            
+            <div class="text-overlay">
+                <h1>심성훈이 너무 좋아서 만든 페이지</h1>
+                <p>버튼을 눌러 심성훈한테 사랑을 보내 주세요! </p>
+
+                <button id="counterButton">심성훈을 사랑하는 만큼 누르기</button>
+                <p>💕: <span id="clickCount">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const button = document.getElementById('counterButton');
+        const display = document.getElementById('clickCount');
+        const storageKey = 'userClickCount'; // LocalStorage에 저장할 키 이름
+
+        // 1. 페이지 로드 시 저장된 값 불러오기
+        // LocalStorage에서 값을 가져옵니다. 값이 없으면 0을 기본값으로 사용합니다.
+        let count = parseInt(localStorage.getItem(storageKey)) || 0;
+        display.textContent = count; // 불러온 값을 화면에 표시
+
+        // 2. 버튼 클릭 이벤트 리스너
+        button.addEventListener('click', function() {
+            count = count + 1; // 횟수 증가
+            display.textContent = count; // 화면 업데이트
+
+            // 3. 증가된 값을 LocalStorage에 저장
+            localStorage.setItem(storageKey, count);
+        });
+
+        // (선택 사항) 초기화 버튼을 추가할 경우:
+        /*
+        // HTML에 <button id="resetButton">초기화</button>를 추가했다면,
+        document.getElementById('resetButton').addEventListener('click', function() {
+            count = 0;
+            display.textContent = count;
+            localStorage.setItem(storageKey, count);
+        });
+        */
+    </script>
+
+</body>
+</html>
